@@ -1,0 +1,198 @@
+<div id="content">
+  <!-- Begin Page Content -->
+  <div class="container-fluid">
+    <!-- Page Heading -->
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+      
+    </div>
+
+    
+
+    <!-- Content Row -->
+
+    <div class="row">
+      <!-- Area Chart -->
+      <div class="col-xl-12 col-lg-12">
+        <div class="card shadow mb-4">
+          <!-- Card Header - Dropdown -->
+          <div
+            class="card-header py-3 d-flex flex-row align-items-center justify-content-between"
+          >
+            <h6 class="m-0 font-weight-bold text-primary">ĐƠN ĐẶT PHÒNG</h6>
+            <div class="dropdown no-arrow">
+              <a
+                class="dropdown-toggle"
+                href="#"
+                role="button"
+                id="dropdownMenuLink"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+              </a>
+              <div
+                class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
+                aria-labelledby="dropdownMenuLink"
+              >
+                <div class="dropdown-header">Dropdown Header:</div>
+                <a class="dropdown-item" href="#">Action</a>
+                <a class="dropdown-item" href="#">Another action</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="#">Something else here</a>
+              </div>
+            </div>
+          </div>
+          <!-- Card Body -->
+          <div class="card-body">
+            <table
+              id="example"
+              class="table table-striped text-center"
+              style="font-size: small; width: 100%"
+            >
+              <thead>
+                <tr>
+                  <th>STT</th>
+                  <th>Khách hàng</th>
+                  <th>Email</th>
+                  <th>SĐT</th>
+                  <th>Loại phòng</th>
+                  <th>Phòng</th>
+                  <th>Tầng</th>
+                  <th>Ngày đến</th>
+                  <th>Ngày đi</th>
+                  <th>Tổng giá</th>
+
+                  <th>Trạng thái</th>
+                  <th>Dịch vụ</th>
+                  <th>Người duyệt</th>
+                  <th>Phản hồi từ admin</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let c of contracts; index as i">
+                  <td>{{ i + 1 }}</td>
+                  <td>{{ c.customer.name }}</td>
+                  <td>{{ c.customer.email }}</td>
+                  <td>{{ c.customer.phone }}</td>
+                  <td>{{ c.roomType }}</td>
+                  <td>{{ c.numberRoom }}</td>
+                  <td>{{ c.floor }}</td>
+                  <td>{{ c.checkinDate | date : "dd-MM-yyyy" }}</td>
+                  <td>{{ c.checkoutDate | date : "dd-MM-yyyy" }}</td>
+                  <td>{{ c.totalPrice | number }}đ</td>
+
+                  <td>
+                    <div>
+                      <form>
+                        <select
+                          name="status"
+                          id="status"
+                          (change)="updateStatus($event, c)"
+                        >
+                          <option value="0" [selected]="c.status == 0">
+                            Chờ xác nhận
+                          </option>
+                          <option value="2" [selected]="c.status == 2">
+                            Hủy bỏ
+                          </option>
+                          <option value="1" [selected]="c.status == 1">
+                            Xác nhận
+                          </option>
+                          <option value="3" [selected]="c.status == 3">
+                            Đã thanh toán
+                          </option>
+                        </select>
+                      </form>
+                    </div>
+                  </td>
+                  <td>
+                    <div
+                      class="text-info"
+                      style="cursor: pointer"
+                      (click)="details(c)"
+                      data-bs-toggle="modal"
+                      data-bs-target="#myModal"
+                    >
+                      Xem chi tiết
+                    </div>
+                  </td>
+                  <td>
+                    <span *ngIf="c.admin">{{ c.admin.name }}</span>
+                  </td>
+                  <td>{{ c.note }}</td>
+                </tr>
+              </tbody>
+            </table>
+            <!-- The Modal -->
+            <div class="modal fade" id="myModal">
+              <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                  <!-- Modal Header -->
+                  <div class="modal-header">
+                    <h4 class="modal-title">Dịch vụ khách đăng ký kèm theo</h4>
+                    <button
+                      type="button"
+                      class="btn-close"
+                      data-bs-dismiss="modal"
+                    ></button>
+                  </div>
+
+                  <!-- Modal body -->
+                  <div class="modal-body">
+                    <table class="table">
+                      <thead class="table-dark">
+                        <tr>
+                          <th>Dịch vụ</th>
+                          <th>Giá</th>
+                          <th>Trạng thái</th>
+                          <th>Từ ngày</th>
+                          <th>Đến ngày</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let r of selectedRegister">
+                          <td>{{ r.serviceName }}</td>
+                          <td>{{ r.totalPrice | number }}đ</td>
+                          <td>
+                            <form>
+                              <select name="" id="">
+                                <option
+                                  value="0"
+                                  [selected]="r.status == false"
+                                >
+                                  Chưa thanh toán
+                                </option>
+                                <option value="1" [selected]="r.status == true">
+                                  Đã thanh toán
+                                </option>
+                              </select>
+                            </form>
+                          </td>
+                          <td>{{ r.fromDate | date : "dd-MM-yyyy" }}</td>
+                          <td>{{ r.toDate | date : "dd-MM-yyyy" }}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+
+                  <!-- Modal footer -->
+                  <div class="modal-footer">
+                    <button
+                      type="button"
+                      class="btn btn-danger"
+                      data-bs-dismiss="modal"
+                    >
+                      Close
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- /.container-fluid -->
+</div>

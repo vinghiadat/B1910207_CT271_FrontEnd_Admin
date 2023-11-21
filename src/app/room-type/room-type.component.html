@@ -1,0 +1,65 @@
+<div id="content">
+    <!-- Begin Page Content -->
+    <div class="container-fluid">
+        <!-- Page Heading -->
+        <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h3 mb-0 text-gray-800">Danh sách loại phòng</h1>
+        </div>
+
+        <!-- Content Row -->
+
+        <div class="row">
+            <!-- Area Chart -->
+            <div class="col-xl-12 col-lg-12">
+                <div class="card shadow mb-4">
+                    <!--Modal: modalPush-->
+                    <table id="example" class="table text-left text-center" style="font-size: small">
+                        <thead>
+                            <tr>
+                                <th>STT</th>
+                                <th>Loại phòng</th>
+                                <th>Số trẻ em</th>
+                                <th>Số người lớn</th>
+                                <th>Loại giường</th>
+                                <th>Mô tả</th>
+                                <th>Giá</th>
+                                <th>Hình ảnh</th>
+                                <th>Hoạt động</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody *ngIf="listRoomType.length != 0">
+                            <tr *ngFor="let r of listRoomType; index as i">
+                                <td>{{ i + 1 }}</td>
+                                <td>{{ r.name }}</td>
+                                <td>{{ r.numberOfChild}}</td>
+                                <td>{{ r.numberOfAdult}}</td>
+                                <td>{{ r.bedType}}
+                                <td>{{ r.description }}</td>
+                                <td>
+                                    <div >{{ r.price | number }}đ/ tháng</div>
+                                    
+                                </td>
+                                <td>
+                                    <img style="height: 222px; width: 350px" [src]="imageUrls[i ]" alt="" />
+                                </td>
+                                <td>
+                                    <select (change)="updateEnable(r)">
+                                        <option value="Còn" [selected]="r.enable">Còn</option>
+                                        <option value="Không" [selected]="!r.enable">Không</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <div>
+                                        <a style="cursor: pointer; font-weight: bold" class="text-info"
+                                            [routerLink]="['/rooms', r.id]">Chi tiết</a>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

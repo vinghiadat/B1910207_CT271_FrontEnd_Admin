@@ -1,0 +1,61 @@
+<div id="content">
+    <!-- Begin Page Content -->
+    <div class="container-fluid">
+        <!-- Page Heading -->
+
+        <div class="container rounded bg-white mt-5 mb-5">
+            <div class="row">
+                <div class="col-md-2 border-right"></div>
+                <div class="col-md-10">
+                    <div class="p-3 py-5">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h4 class="text-right">Thêm homestay</h4>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col-md-12">
+                                <label class="labels">Tên homestay</label><input type="text" class="form-control"
+                                    placeholder="Ví dụ: A1, A2, A3" [(ngModel)]="roomType.name" />
+                            </div>
+                            <div class="col-md-12">
+                                <label class="labels">Số lượng người lớn</label><input type="number"
+                                    class="form-control" placeholder="Nhập số lượng > 0 && <=10"
+                                    [(ngModel)]="roomType.numberOfAdult" />
+                            </div>
+                            <div class="col-md-12">
+                                <label class="labels">Số lượng trẻ em</label><input type="number" class="form-control"
+                                    placeholder="Nhập số lượng > 0 && <=10" [(ngModel)]="roomType.numberOfChild" />
+                            </div>
+                            <div class="col-md-12">
+                                <label class="labels">Loại giường</label>
+                                <select name="bedType" class="form-control" id="bedType" [(ngModel)]="roomType.bedType">
+                                    <option value="Giường đơn">Giường đơn</option>
+                                    <option value="Giường đôi nhỏ">Giường đôi nhỏ</option>
+                                    <option value="Giường đôi lớn">Giường đôi lớn</option>
+                                    <option value="Giường siêu lớn">Giường siêu lớn</option>
+                                </select>
+                                
+                            </div>
+                            <div class="col-md-12">
+                                <label class="labels">Giá</label><input [(ngModel)]="roomType.price" type="number"
+                                    class="form-control" placeholder="Nhập giá lớn hơn 0 và chia hết cho 1000" />
+                            </div>
+                            <div class="col-md-12">
+                                <label class="labels">Mô tả</label><input [(ngModel)]="roomType.description" type="text" class="form-control"
+                                    placeholder="Nhập mô tả" />
+                            </div>
+                            <div class="col-md-12">
+                                <label class="labels">Hình ảnh</label><input type="file" #fileInput class="form-control"
+                                    (change)="handleFileInput($event)" />
+                            </div>
+                            <div class="col-md-12">
+                                <button (click)="submitForm()" class="btn btn-primary mt-3">
+                                    Thêm Phòng
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
